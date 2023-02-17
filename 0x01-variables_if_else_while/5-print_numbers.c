@@ -1,35 +1,17 @@
 #include <stdio.h>
 
 /**
- * main -  prints all single digit numbers
- *
+ * main - prints all single digit numbers of base
+ * 10 starting from 0, followed by a new line
  * Return: Always 0 (Success)
- *
  */
-
 int main(void)
-
 {
-	int ones = '0';
-	int tens = '0';
+	int n;
 
-	for (tens = '0'; tens <= '9'; tens++)/* prints tens digit*/
-	{
-		for (ones = '0'; ones <= '9'; ones++)/* prints ones digit*/
-		{
-			if (!((ones == tens) || (tens > ones)))/*eliminates repitition*/
-			{
-				putchar(tens);
-				putchar(ones);
-				if (!(ones == '9' && tens == '8'))/*adds comma and space*/
-				{
-					putchar(',');
-					putchar(' ');
-				}
-			}
-		}
-	}
-	putchar('\n');
-
+	for (n = 0; n < 10; n++)
+		printf("%d", n);
+	printf("\n");
 	return (0);
 }
+
