@@ -2,43 +2,67 @@
 #include "holberton.h"
 
 /**
- * **alloc_grid - creates a two dimensional array of ints
- * @width: width of the matrix
- * @height: height of the matrix
- *
- * Return: pointer to the created matrix (Success)
- * or NULL (Error)
+ * free_grid - frees the memory allocate for the grid
+ * created by alloc_grid()
+ * @grid: grid to free
+ * @height: height of the grid
  */
-int **alloc_grid(int width, int height)
+void free_grid(int **grid, int height)
 {
-	int **array;
-	int i, j;
+	int i;
 
-	if (height <= 0 || width <= 0)
-		return (NULL);
-
-	array = (int **) malloc(sizeof(int *) * height);
-
-	if (array == NULL)
-		return (NULL);
-	for (i = 0; i < height; i++)
-	{
-		array[i] = (int *) malloc(sizeof(int) * width);
-		if (array[i] == NULL)
-		{
-			free(array);
-			for (j = 0; j <= i; j++)
-				free(array[j]);
-			return (NULL);
-		}
-	}
+	if (grid == NULL || height == 0)
+		return;
 
 	for (i = 0; i < height; i++)
+		free(grid[i]);
+
+	free(grid);
+}
+
+vi 100-argstostr.c
+#include <stdlib.h>
+#include "holberton.h"
+
+/**
+* *argstostr - concatenates all the arguments of the program
+* @ac: number of arguments
+* @av: array of arguments
+*
+* Return: Pointer to the new string (Success), NULL (Error)
+*/
+char *argstostr(int ac, char **av)
+{
+	int i, j, k, len;
+	char *str;
+
+	if (ac == 0 || av == NULL)
+		return (NULL);
+
+	for (i = 0; i < ac; i++)
 	{
-		for (j = 0; j < width; j++)
-		{
-			array[i][j] = 0;
-		}
+		for (j = 0; av[i][j] != '\0'; j++)
+			len++;
+		len++;
 	}
-	return (array);
+
+	str = malloc(sizeof(char) * (len + 1));
+
+	if (str == NULL)
+		return (NULL);
+
+	k = 0;
+
+	for (i = 0; i < ac; i++)
+	{
+		for (j = 0; av[i][j] != '\0'; j++)
+		{
+			str[k] = av[i][j];
+			k++;
+		}
+		str[k] = '\n';
+		k++;
+	}
+	
+	return (str);
 }
